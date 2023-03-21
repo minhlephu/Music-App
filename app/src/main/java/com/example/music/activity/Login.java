@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/").getReference();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://music-app-e0d3e-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
