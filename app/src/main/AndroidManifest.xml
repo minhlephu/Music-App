@@ -4,15 +4,16 @@
     package="com.example.music">
 
     <uses-configuration android:name="android.pemission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="com.example.music.MyApplication"
         android:allowBackup="false"
-        tools:replace="android:allowBackup"
         android:fitsSystemWindows="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,8 +22,19 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute">
-
+        tools:ignore="UnusedAttribute"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".activity.Register"
+            android:exported="false" />
+        <activity android:name=".activity.Login"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_small_push_notification" />
@@ -36,23 +48,20 @@
             android:exported="false" />
 
         <activity
-            android:exported="true"
-            android:name="com.example.music.activity.SplashActivity">
+            android:name=".activity.SplashActivity"
+            android:exported="true">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:exported="false"
-            android:name="com.example.music.activity.MainActivity" />
-
+            android:name=".activity.MainActivity"
+            android:exported="false" />
         <activity
-            android:exported="false"
-            android:name="com.example.music.activity.PlayMusicActivity" />
-
+            android:name=".activity.PlayMusicActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

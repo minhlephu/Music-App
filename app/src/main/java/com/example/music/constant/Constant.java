@@ -13,7 +13,7 @@ public class Constant {
     public static final String ZALO_LINK = "https://zalo.me/0392229676";
 
     // Firebase url
-    public static final String FIREBASE_URL = "https://musicbasic-251ca-default-rtdb.firebaseio.com";
+    public static final String FIREBASE_URL = "https://music-de534-default-rtdb.firebaseio.com";
 
     // Max count
     public static final int MAX_COUNT_BANNER = 5;
