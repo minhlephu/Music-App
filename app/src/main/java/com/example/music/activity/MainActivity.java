@@ -28,10 +28,12 @@ import com.example.music.fragment.PopularSongsFragment;
 import com.example.music.model.Song;
 import com.example.music.service.MusicService;
 import com.example.music.utils.GlideUtils;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 @SuppressLint("NonConstantResourceId")
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/").getReference();
     public static final int TYPE_HOME = 1;
     public static final int TYPE_ALL_SONGS = 2;
     public static final int TYPE_FEATURED_SONGS = 3;
