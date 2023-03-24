@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int mTypeScreen = TYPE_HOME;
     private ActivityMainBinding mActivityMainBinding;
     private int mAction;
+    private TextView tvusername,tvemail;
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -58,7 +60,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mActivityMainBinding.getRoot());
-
+        tvusername = mActivityMainBinding.menuLeft.header.tvusername;
+        tvemail =mActivityMainBinding.menuLeft.header.tvemail;
+        tvusername.setText(Login.currentUser.getName());
+        tvemail.setText(Login.currentUser.getEmail());
         LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver,
                 new IntentFilter(Constant.CHANGE_LISTENER));
         openHomeScreen();
@@ -72,6 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initListener() {
+
         mActivityMainBinding.header.imgLeft.setOnClickListener(this);
         mActivityMainBinding.header.layoutPlayAll.setOnClickListener(this);
 
@@ -90,6 +96,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mActivityMainBinding.layoutBottom.imgClose.setOnClickListener(this);
         mActivityMainBinding.layoutBottom.layoutText.setOnClickListener(this);
         mActivityMainBinding.layoutBottom.imgSong.setOnClickListener(this);
+
+        mActivityMainBinding.menuLeft.tvDangxuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Login.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void openHomeScreen() {

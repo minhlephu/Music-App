@@ -7,6 +7,7 @@
     android:layout_marginEnd="-65dp"
     android:orientation="horizontal">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,9 @@
         android:layout_toStartOf="@+id/layout_close"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
-
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header_menu" />
         <TextView
             android:id="@+id/tv_menu_home"
             android:layout_width="match_parent"
@@ -108,6 +111,19 @@
             android:text="@string/menu_contact"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_xnormal" />
+        <TextView
+            android:id="@+id/tv_dangxuat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/define_dimen_14"
+            android:text="Log Out"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xnormal" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
     </LinearLayout>
 
     <RelativeLayout
