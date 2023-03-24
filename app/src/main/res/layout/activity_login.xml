@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
-        android:id="@+id/phone"
+        android:id="@+id/etphone"
         android:hint="Mobile"
         android:maxLines="1"
         android:layout_marginStart="20dp"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:id="@+id/password"
+        android:id="@+id/etpassword"
         android:hint="Password"
         android:maxLines="1"
         android:layout_marginStart="20dp"
@@ -41,7 +41,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="0dp"/>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginBtn"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

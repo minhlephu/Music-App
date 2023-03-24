@@ -9,75 +9,82 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.Patterns;
 import com.example.music.R;
+import com.example.music.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/").getReference();
+    EditText name, password, phone, email;
+    Button signup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final EditText fullname = findViewById(R.id.fullname);
-        final EditText email = findViewById(R.id.email);
-        final EditText phone = findViewById(R.id.phone);
-        final EditText password = findViewById(R.id.password);
-        final EditText conPassword = findViewById(R.id.conpassword);
+        name =findViewById(R.id.etfullname);
+        password = findViewById(R.id.etpassword);
+        phone = findViewById(R.id.etphone);
+        email = findViewById(R.id.etemail);
+        signup = findViewById(R.id.btnregister);
 
-        final Button registerBtn = findViewById(R.id.registerBtn);
-        final TextView loginNowBtn = findViewById(R.id.LoginNow);
+        final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^]).{6,15})";
+//        FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/").getReference()
+        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/");
+        final DatabaseReference customer = database.getReference("users");
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // get data from EditTexts into String variables
-                final String fullnameTxt = fullname.getText().toString();
-                final String emailTxt = email.getText().toString();
-                final String phoneTxt = phone.getText().toString();
-                final String passwordTxt = password.getText().toString();
-                final String conPasswordTxt = conPassword.getText().toString();
+            public void onClick(View v) {
 
-                if(fullnameTxt.isEmpty()||emailTxt.isEmpty()||phoneTxt.isEmpty()||passwordTxt.isEmpty()){
-                    Toast.makeText(Register.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                } else if (!passwordTxt.equals(conPasswordTxt)) {
-                    Toast.makeText(Register.this, "Passwords are not matching", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //check if phone is not registered before
-                            if(snapshot.hasChild(phoneTxt)){
-                                Toast.makeText(Register.this, "Phone is already registered", Toast.LENGTH_SHORT).show();
+                customer.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child(phone.getText().toString()).exists()) {
+                            Toast.makeText(Register.this, "Số điện thoại này đã được đăng ký.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            if(!isEmailValid((email.getText().toString())))
+                            {
+                                Toast.makeText(Register.this, "Địa chỉ email không hợp lệ.", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(!isPasswordValid(password.getText().toString())) {
+                                Toast.makeText(Register.this, "Mật khẩu không hợp lệ. Mật khẩu bao gồm: 1 chữ số, 1 chữ thường, 1 chữ hoa, 1 ký hiệu đặc biệt, độ dài tối thiểu là 6 ký tự", Toast.LENGTH_LONG).show();
                             }
                             else {
-                                databaseReference.child("users").child(phoneTxt).child("fullname").setValue(fullnameTxt);
-                                databaseReference.child("users").child(phoneTxt).child("email").setValue(emailTxt);
-                                databaseReference.child("users").child(phoneTxt).child("password").setValue(passwordTxt);
-                                Toast.makeText(Register.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                                User user = new User(name.getText().toString(), password.getText().toString(), email.getText().toString());
+                                customer.child(phone.getText().toString()).setValue(user);
+                                Toast.makeText(Register.this, "Bạn đã đăng ký thành công!", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                    }
 
-                }
-            }
-        });
-        loginNowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+                    public boolean isPasswordValid (final String password){
+                        Pattern pattern;
+                        Matcher matcher;
+                        pattern = Pattern.compile(PASSWORD_PATTERN);
+                        matcher = pattern.matcher(password);
+                        return matcher.matches();
+
+                    }
+
+                    boolean isEmailValid (CharSequence email)
+                    {
+                        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+                    }
+                });
             }
         });
     }
