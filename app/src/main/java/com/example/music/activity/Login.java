@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         RegisterNow = findViewById(R.id.RegisterNowBtn);
         Toast.makeText(getApplicationContext(),"here",Toast.LENGTH_SHORT);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/");
+        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://music-app-3f527-default-rtdb.firebaseio.com/");
         final DatabaseReference customer = database.getReference("users");
         RegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +47,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"here",Toast.LENGTH_SHORT);
-//                ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-//                mDialog.sentMessage("Please wait...");
                 customer.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

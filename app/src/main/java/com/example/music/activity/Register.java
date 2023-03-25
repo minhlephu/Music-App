@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity {
 
         final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^]).{6,15})";
 //        FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/").getReference()
-        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://music-de534-default-rtdb.firebaseio.com/");
+        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://music-app-3f527-default-rtdb.firebaseio.com/");
         final DatabaseReference customer = database.getReference("users");
 
         signup.setOnClickListener(new View.OnClickListener() {
