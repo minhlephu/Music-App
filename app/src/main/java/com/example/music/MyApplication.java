@@ -46,8 +46,10 @@ public class MyApplication extends Application {
     public DatabaseReference getFeedbackDatabaseReference() {
         return mFirebaseDatabase.getReference("/feedback");
     }
-
     public DatabaseReference getCountViewDatabaseReference(int songId) {
         return FirebaseDatabase.getInstance().getReference("/songs/" + songId + "/count");
+    }
+    public DatabaseReference getPlaylistDatabaseReference(String phoneNumber){
+        return FirebaseDatabase.getInstance().getReference("/playlists/" + phoneNumber);
     }
 }

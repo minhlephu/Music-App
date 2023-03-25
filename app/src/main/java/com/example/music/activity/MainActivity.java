@@ -25,6 +25,7 @@ import com.example.music.fragment.FeaturedSongsFragment;
 import com.example.music.fragment.FeedbackFragment;
 import com.example.music.fragment.HomeFragment;
 import com.example.music.fragment.NewSongsFragment;
+import com.example.music.fragment.PlaylistFragment;
 import com.example.music.fragment.PopularSongsFragment;
 import com.example.music.model.Song;
 import com.example.music.service.MusicService;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final int TYPE_NEW_SONGS = 5;
     public static final int TYPE_FEEDBACK = 6;
     public static final int TYPE_CONTACT = 7;
+    public static final int TYPE_PLAY_LIST = 8;
 
     private int mTypeScreen = TYPE_HOME;
     private ActivityMainBinding mActivityMainBinding;
@@ -80,7 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mActivityMainBinding.header.imgLeft.setOnClickListener(this);
         mActivityMainBinding.header.layoutPlayAll.setOnClickListener(this);
-
+        mActivityMainBinding.menuLeft.tvPlaylist.setOnClickListener(this);
         mActivityMainBinding.menuLeft.layoutClose.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuHome.setOnClickListener(this);
         mActivityMainBinding.menuLeft.tvMenuAllSongs.setOnClickListener(this);
@@ -127,13 +129,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         displayLayoutPlayAll();
     }
 
+    public void openPlaylistScreen(){
+        replaceFragment(new PlaylistFragment());
+        mTypeScreen = TYPE_PLAY_LIST;
+        initToolbar("Play List");
+        displayLayoutPlayAll();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_close:
                 mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-
+            case R.id.tv_playlist:
+                mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
+                replaceFragment(new PlaylistFragment());
+                mTypeScreen = TYPE_PLAY_LIST;
+                initToolbar("Play List");
+                displayLayoutPlayAll();
+                break;
             case R.id.img_left:
                 mActivityMainBinding.drawerLayout.openDrawer(GravityCompat.START);
                 break;
