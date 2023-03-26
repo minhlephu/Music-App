@@ -37,7 +37,7 @@ public class AddSongFragment extends Fragment {
     DatabaseReference addSong = database.getReference("/playlists/" + Login.currentUser.getPhone());
 
     DatabaseReference setSong = database.getReference("/playlists");
-    final String URL_PATTERN = "/https?:\\/\\/(?:[-\\w]+\\.)?([-\\w]+)\\.\\w+(?:\\.\\w+)?\\/?.*/i";
+    final String URL_PATTERN = "^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?$\n";
     public AddSongFragment() {
         // Required empty public constructor
     }
@@ -79,16 +79,19 @@ public class AddSongFragment extends Fragment {
                 false, true, 10, false);
         mListSong.add(song);
 
-        setSong.child(Login.currentUser.getPhone()).setValue(mListSong, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(activity, "Thanh cong", Toast.LENGTH_SHORT).show();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, new PlaylistFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+
+            setSong.child(Login.currentUser.getPhone()).setValue(mListSong, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    Toast.makeText(activity, "Thêm vào playlist thành công", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content_frame, new PlaylistFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
+
+
 
     }
 }

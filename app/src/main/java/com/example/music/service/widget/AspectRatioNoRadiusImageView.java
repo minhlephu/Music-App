@@ -1,4 +1,4 @@
-package com.example.music.widget;
+package com.example.music.service.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
