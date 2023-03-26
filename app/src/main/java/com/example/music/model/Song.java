@@ -17,6 +17,18 @@ public class Song implements Serializable {
     public Song() {
     }
 
+    public Song(int id, String title, String image, String url, String artist, boolean latest, boolean featured, int count, boolean isPlaying) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.url = url;
+        this.artist = artist;
+        this.latest = latest;
+        this.featured = featured;
+        this.count = count;
+        this.isPlaying = isPlaying;
+    }
+
     public int getId() {
         return id;
     }
